@@ -61,6 +61,11 @@ class TestIn(OpenRTM_aist.DataFlowComponentBase):
 		#{%wsb:init
 		
 
+
+                self._d_in0 = RTC.TimedLong(RTC.Time(0, 0), 0)
+                """
+                """
+                self._in0In = OpenRTM_aist.InPort("in0", self._d_in0)
 		#%}
 
 		# initialize of configuration-data.
@@ -82,6 +87,8 @@ class TestIn(OpenRTM_aist.DataFlowComponentBase):
 
 		#{%wsb:on_initialize
 
+
+                self.addInPort("in0", self._in0In)
 		#%}
 
 		# Bind variables and configuration variable
@@ -149,9 +156,9 @@ class TestIn(OpenRTM_aist.DataFlowComponentBase):
 	#	# @return RTC::ReturnCode_t
 	#	#
 	#	#
-	#def onActivated(self, ec_id):
-	#
-	#	return RTC.RTC_OK
+	def onActivated(self, ec_id):
+		self.fout = open('test_out.txt', 'w')
+		return RTC.RTC_OK
 	
 	#	##
 	#	#
@@ -163,9 +170,9 @@ class TestIn(OpenRTM_aist.DataFlowComponentBase):
 	#	# @return RTC::ReturnCode_t
 	#	#
 	#	#
-	#def onDeactivated(self, ec_id):
-	#
-	#	return RTC.RTC_OK
+	def onDeactivated(self, ec_id):
+		self.fout.close()
+		return RTC.RTC_OK
 	
 	#	##
 	#	#
@@ -177,9 +184,11 @@ class TestIn(OpenRTM_aist.DataFlowComponentBase):
 	#	# @return RTC::ReturnCode_t
 	#	#
 	#	#
-	#def onExecute(self, ec_id):
-	#
-	#	return RTC.RTC_OK
+	def onExecute(self, ec_id):
+		if self._in0In.isNew():
+			d = self._in0In.read()
+			self.fout.write(str(d.data) + '\n')
+		return RTC.RTC_OK
 	
 	#	##
 	#	#
