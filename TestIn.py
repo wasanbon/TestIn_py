@@ -157,7 +157,7 @@ class TestIn(OpenRTM_aist.DataFlowComponentBase):
 	#	#
 	#	#
 	def onActivated(self, ec_id):
-		self.fout = open('test_out.txt', 'w')
+		self.fout = open('testout.txt', 'w')
 		return RTC.RTC_OK
 	
 	#	##
@@ -188,6 +188,7 @@ class TestIn(OpenRTM_aist.DataFlowComponentBase):
 		if self._in0In.isNew():
 			d = self._in0In.read()
 			self.fout.write(str(d.data) + '\n')
+			self.fout.flush()
 		return RTC.RTC_OK
 	
 	#	##
