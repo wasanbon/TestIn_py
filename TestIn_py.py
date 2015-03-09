@@ -3,7 +3,7 @@
 # -*- Python -*-
 
 """
- @file TestIn.py
+ @file TestIn_py.py
  @brief Default Description
  @date $Date
 
@@ -30,8 +30,8 @@ import OpenRTM_aist
 
 # This module's spesification
 # <rtc-template block="module_spec">
-module_spec = ["implementation_id", "TestIn", 
-		 "type_name",         "TestIn", 
+module_spec = ["implementation_id", "TestIn_py", 
+		 "type_name",         "TestIn_py", 
 		 "description",       "Default Description",
 		 "version",           "1.0.0", 
 		 "vendor",            "$VenderName", 
@@ -44,11 +44,11 @@ module_spec = ["implementation_id", "TestIn",
 # </rtc-template>
 
 ##
-# @class TestIn
+# @class TestIn_py
 # @brief $MODULE_DESCRIPTION
 # 
 # 
-class TestIn(OpenRTM_aist.DataFlowComponentBase):
+class TestIn_py(OpenRTM_aist.DataFlowComponentBase):
 	
 	##
 	# @brief constructor
@@ -265,17 +265,17 @@ class TestIn(OpenRTM_aist.DataFlowComponentBase):
 
 
 
-def TestInInit(manager):
+def TestIn_pyInit(manager):
     profile = OpenRTM_aist.Properties(defaults_str=module_spec)
     manager.registerFactory(profile,
-                            TestIn,
+                            TestIn_py,
                             OpenRTM_aist.Delete)
 
 def MyModuleInit(manager):
-    TestInInit(manager)
+    TestIn_pyInit(manager)
 
     # Create a component
-    comp = manager.createComponent("TestIn")
+    comp = manager.createComponent("TestIn_py")
 
 def main():
 	mgr = OpenRTM_aist.Manager.init(sys.argv)
